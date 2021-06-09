@@ -221,5 +221,3 @@ exports.handler = () => {
   };
   return response;
 };
-
-alarmLogic();
