@@ -73,18 +73,18 @@ const cryptos = [
     lowThreshold: 17.85,
     id: 6636,
   },
-  {
-    name: "Bitcoin",
-    shortName: "BTC",
-    highTreshhold: 60000,
-    lowThreshold: 34500,
-    id: 1,
-  },
+  // {
+  //   name: "Bitcoin",
+  //   shortName: "BTC",
+  //   highTreshhold: 60000,
+  //   lowThreshold: 34500,
+  //   id: 1,
+  // },
   {
     name: "Ethereum",
     shortName: "ETH",
-    highTreshhold: 3700,
-    lowThreshold: 2000,
+    highTreshhold: 2700,
+    lowThreshold: 2300,
     id: 1027,
   },
   {
@@ -94,13 +94,13 @@ const cryptos = [
     lowThreshold: 0.6,
     id: 52,
   },
-  {
-    name: "Stellar",
-    shortName: "XLM",
-    highTreshhold: 0.69,
-    lowThreshold: 0.37,
-    id: 512,
-  },
+  // {
+  //   name: "Stellar",
+  //   shortName: "XLM",
+  //   highTreshhold: 0.69,
+  //   lowThreshold: 0.37,
+  //   id: 512,
+  // },
   {
     name: "Tron",
     shortName: "TRX",
@@ -193,10 +193,10 @@ const alarmLogic = async () => {
   const highAlarms = filterByCryptosOverPriceRange(enrichedCryptos) || [];
   const lowAlarms = filterByCryptosUnderPriceRange(enrichedCryptos) || [];
 
-  if (highAlarms.length === 0 && lowAlarms.length === 0) {
+  if (cryptos.length !== enrichedCryptos.length) {
     sendEmail(
-      "Nothing to report :) ",
-      "Fetched this many cryptos succesfully... " + enrichedCryptos.length
+      "Failed to fetch all prices for cryptos...",
+      "Expected " + cryptos.length + ". Instead got: " + enrichedCryptos.length
     );
   }
 
@@ -204,7 +204,7 @@ const alarmLogic = async () => {
     await sendHighAlarmEmails(highAlarms);
     await sendLowAlarmEmails(lowAlarms);
     console.log(
-      "Sending emails succesful!",
+      "Logic ran succesfully!",
       "high alarms: " + highAlarms.length,
       "low alarms: " + lowAlarms.length
     );
@@ -221,3 +221,5 @@ exports.handler = () => {
   };
   return response;
 };
+
+alarmLogic();
