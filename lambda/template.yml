@@ -16,7 +16,7 @@ Resources:
         cryptoAlarm:
           Type: Schedule
           Properties:
-            Schedule: rate(20 minute)
+            Schedule: rate(20 minutes)
       Policies:
         - Version: "2012-10-17"
           Statement:
